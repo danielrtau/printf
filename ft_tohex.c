@@ -1,45 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_ul.c                                       :+:      :+:    :+:   */
+/*   ft_tohex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 14:39:07 by danielro          #+#    #+#             */
-/*   Updated: 2022/06/28 09:44:02 by danielro         ###   ########.fr       */
+/*   Created: 2022/06/28 09:52:54 by danielro          #+#    #+#             */
+/*   Updated: 2022/06/28 11:19:51 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdio.h>
+#include "libft.h"
 
-char	*ft_itoa_ul(unsigned int n)
+char	*ft_tohex(unsigned long int n)
 {
-	char	num[11];
+	char	num[8];
+	int		a;
 	int		b;
 	char	*c;
 
-	b = 10;
-	while (n / 10)
+	b = 7;
+	while(n / 16)
 	{
-		num[b--] = (n % 10) + '0';
-		n /= 10;
+		a = n % 16;
+		num[b--] = "0123456789abcdef"[a];
+		n /= 16;
 	}
-	num[b] = (n % 10) + '0';
-	c = ft_calloc((12 - b), sizeof(char));
+	num[b] = "0123456789abcdef"[n];
+	c = ft_calloc((9 - b), sizeof(char));
 	if (c == NULL)
 		return (NULL);
-	ft_memmove(c, num + b, 11 - b);
+	ft_memmove(c, num + b, 8 - b);
 	return (c);
 }
-/*
-int	main(void)
-{
-	int	a;
-	char	*x;
-
-	a = -2147483648;
-	x = ft_itoa_ul(a);
-	printf("%s", x);
-	return 0;
-}*/

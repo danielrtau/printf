@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:49:55 by danielro          #+#    #+#             */
-/*   Updated: 2022/06/26 18:29:21 by danielro         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:03:25 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ int	ft_printf(char const *txt, ...)
 	{
 		if (*txt == '%')
 		{
-			if (txt[1] == 'c')
+			while(!(ft_strchr("cspdiuxX", txt[0])))
+					txt++;
+//			txt++;
+			if (txt[0] == 'c')
 			{
 				ch = (char)va_arg(ap, int);
 				write(1, &ch, 1);
 				count++;
 			}
-			if (txt[1] == 's')
+			if (txt[0] == 's')
 			{
 				str = va_arg(ap, char *);
 				while(*str)
@@ -49,7 +52,7 @@ int	ft_printf(char const *txt, ...)
 					str++;
 				}
 			}
-			if (txt[1] == 'd' || txt[1] == 'i')
+			if (txt[0] == 'd' || txt[0] == 'i')
 			{
 				ch1 = va_arg(ap, int);
 				num = ft_itoa(ch1);
@@ -60,7 +63,7 @@ int	ft_printf(char const *txt, ...)
 					num++;
 				}
 			}
-			if (txt[1] == 'u')
+			if (txt[0] == 'u')
 			{
 				ch2 = va_arg(ap, unsigned int);
 				num = ft_itoa_ul(ch2);
@@ -71,19 +74,19 @@ int	ft_printf(char const *txt, ...)
 					num++;
 				}
 			}
-			if (txt[1] == 'p')
+			if (txt[0] == 'x')
 			{
 				ch3 = va_arg(ap, unsigned long int);
-//				printf("%lu\n", ch3);
-//				num = ft_itoa_ul(ch2);
-//				while(*num)
-//				{
-//					write(1, &num[0], 1);
-//					count++;
-//					num++;
-//				}
+				num = ft_tohex(ch3);
+				while(*num)
+				{
+					write(1, &num[0], 1);
+					count++;
+					num++;
+				}
 			}
-			txt += 2;
+			txt++;
+//			txt += 2;
 		}
 		else
 		{
@@ -98,15 +101,15 @@ int	ft_printf(char const *txt, ...)
 int	main(void)
 {
 	char	*texto;
-//	int		a;
+	int		a;
 	int		b;
 	int		x;
 
-	texto = "% x %s";
-	x = 1;
-//	a = ft_printf(texto, x, "hola");
+	texto = "%          c %      s %d final";
+	x = 48;
+	a = ft_printf(texto, x, "hola", 453);
 	write(1, "\n", 1);
-	b = printf(texto, x, "hola");
-	printf("\nft_printf: %d\nprintf: %d", b, b);
+	b = printf(texto, x, "hola", 453);
+	printf("\nft_printf: %d\nprintf: %d", a, b);
 	return 0;
 }

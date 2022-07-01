@@ -6,9 +6,11 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:45:01 by danielro          #+#    #+#             */
-/*   Updated: 2022/04/08 13:45:34 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/01 21:27:13 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
 
 char	*ft_strchr(const char *s, int c)
 {

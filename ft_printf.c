@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:49:55 by danielro          #+#    #+#             */
-/*   Updated: 2022/06/28 14:03:25 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/01 22:31:32 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 int	ft_printf(char const *txt, ...)
 {
@@ -35,7 +35,6 @@ int	ft_printf(char const *txt, ...)
 		{
 			while(!(ft_strchr("cspdiuxX", txt[0])))
 					txt++;
-//			txt++;
 			if (txt[0] == 'c')
 			{
 				ch = (char)va_arg(ap, int);
@@ -86,7 +85,6 @@ int	ft_printf(char const *txt, ...)
 				}
 			}
 			txt++;
-//			txt += 2;
 		}
 		else
 		{
@@ -97,7 +95,7 @@ int	ft_printf(char const *txt, ...)
 	}
 	return (count);
 }
-
+/*
 int	main(void)
 {
 	char	*texto;
@@ -105,11 +103,11 @@ int	main(void)
 	int		b;
 	int		x;
 
-	texto = "%          c %      s %d final";
+	texto = "inicio %          c %      s %d final";
 	x = 48;
-	a = ft_printf(texto, x, "hola", 453);
+	a = ft_printf(texto, x, "hola95", 453);
 	write(1, "\n", 1);
 	b = printf(texto, x, "hola", 453);
 	printf("\nft_printf: %d\nprintf: %d", a, b);
 	return 0;
-}
+}*/

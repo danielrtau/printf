@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:49:55 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/01 22:31:32 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/03 23:09:33 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_printf(char const *txt, ...)
 	{
 		if (*txt == '%')
 		{
-			while(!(ft_strchr("cspdiuxX", txt[0])))
+//			while(!(ft_strchr("cspdiuxX", txt[0])))
 					txt++;
 			if (txt[0] == 'c')
 			{
@@ -44,6 +44,8 @@ int	ft_printf(char const *txt, ...)
 			if (txt[0] == 's')
 			{
 				str = va_arg(ap, char *);
+				if(str == NULL)
+					str = "(null)";
 				while(*str)
 				{
 					write(1, &str[0], 1);
@@ -54,13 +56,7 @@ int	ft_printf(char const *txt, ...)
 			if (txt[0] == 'd' || txt[0] == 'i')
 			{
 				ch1 = va_arg(ap, int);
-				num = ft_itoa(ch1);
-				while(*num)
-				{
-					write(1, &num[0], 1);
-					count++;
-					num++;
-				}
+				count += ft_putnbr_fd(ch1);
 			}
 			if (txt[0] == 'u')
 			{
@@ -75,14 +71,24 @@ int	ft_printf(char const *txt, ...)
 			}
 			if (txt[0] == 'x')
 			{
+				ch3 = va_arg(ap, unsigned int);
+				count += ft_tohex(ch3, "0123456789abcdef");
+			}
+			if (txt[0] == 'X')
+			{
+				ch3 = va_arg(ap, unsigned int);
+				count += ft_tohex(ch3, "0123456789ABCDEF");
+			}
+			if (txt[0] == 'p')
+			{
 				ch3 = va_arg(ap, unsigned long int);
-				num = ft_tohex(ch3);
-				while(*num)
-				{
-					write(1, &num[0], 1);
-					count++;
-					num++;
-				}
+				count += ft_putstr_fd("0x");
+				count += ft_tohex(ch3, "0123456789abcdef");
+			}
+			if (txt[0] == '%')
+			{
+				count += ft_putchar_fd('%');
+				num++;
 			}
 			txt++;
 		}
@@ -103,11 +109,11 @@ int	main(void)
 	int		b;
 	int		x;
 
-	texto = "inicio %          c %      s %d final";
+	texto = "%X";
 	x = 48;
-	a = ft_printf(texto, x, "hola95", 453);
-	write(1, "\n", 1);
-	b = printf(texto, x, "hola", 453);
-	printf("\nft_printf: %d\nprintf: %d", a, b);
+	a = printf(texto, 9223372036854775807LL);
+	printf("\n");
+	b = ft_printf(texto, 9223372036854775807LL);
+	printf("\nprintf: %d\nft_printf: %d", a, b);
 	return 0;
 }*/

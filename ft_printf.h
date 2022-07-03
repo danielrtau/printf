@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:37:44 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/01 22:31:43 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/03 22:42:30 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ char	*ft_itoa(int n);
 char	*ft_itoa_ul(unsigned int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
+int		ft_putchar_fd(char c);
+int		ft_putstr_fd(char *s);
 void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-char	*ft_tohex(unsigned long int n);
+int		ft_putnbr_fd(int n);
+int		ft_tohex(unsigned long int n, char *str);
 int		ft_printf(char const *txt, ...);
 
 typedef struct s_list

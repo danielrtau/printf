@@ -6,13 +6,14 @@
 #    By: danielro <danielro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 13:03:21 by danielro          #+#    #+#              #
-#    Updated: 2022/07/01 22:49:51 by danielro         ###   ########.fr        #
+#    Updated: 2022/07/03 21:40:33 by danielro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 SRCS = ft_memset.c ft_strlen.c ft_strchr.c ft_memchr.c ft_memcpy.c \
- ft_calloc.c ft_itoa.c ft_itoa_ul.c ft_printf.c ft_memmove.c ft_tohex.c
+ ft_calloc.c ft_itoa.c ft_itoa_ul.c ft_printf.c ft_memmove.c ft_tohex.c \
+ ft_putnbr_fd.c ft_putchar_fd.c ft_putstr_fd.c
 
 OBJECTS = $(SRCS:.c=.o)
 

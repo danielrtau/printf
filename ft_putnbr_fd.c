@@ -1,46 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_ul.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 14:39:07 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/03 17:40:04 by danielro         ###   ########.fr       */
+/*   Created: 2022/05/08 14:37:58 by danielro          #+#    #+#             */
+/*   Updated: 2022/07/03 19:31:23 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-char	*ft_itoa_ul(unsigned int n)
+int	ft_putnbr_fd(int n)
 {
-	char	num[11];
+	char	a[10];
 	int		b;
-	char	*c;
+	int		c;
 
-	b = 10;
-	while (n / 10)
+	c = 0;
+	b = -1;
+	if (n == -2147483648)
 	{
-		num[b--] = (n % 10) + '0';
-		n /= 10;
+		write(1, "-2147483648", 11);
+		c += 11;
 	}
-	num[b] = (n % 10) + '0';
-	c = ft_calloc((12 - b), sizeof(char));
-	if (c == NULL)
-		return (NULL);
-	ft_memmove(c, num + b, 11 - b);
-	free(c);
-	return (c);
+	else
+	{
+		if (n < 0)
+		{
+			write(1, "-", 1);
+			c++;
+			n *= -1;
+		}
+		while (n / 10)
+		{
+			a[++b] = n % 10;
+			n /= 10;
+		}
+		a[++b] = n;
+		while (b >= 0)
+		{
+			c += ft_putchar_fd(a[b] + '0');
+			b--;
+		}
+	}
+	return(c);
 }
-/*
-int	main(void)
-{
-	int	a;
-	char	*x;
-
-	a = -2147483648;
-	x = ft_itoa_ul(a);
-	printf("%s", x);
-	return 0;
-}*/

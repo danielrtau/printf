@@ -1,46 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_ul.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 14:39:07 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/03 17:40:04 by danielro         ###   ########.fr       */
+/*   Created: 2022/05/08 13:45:05 by danielro          #+#    #+#             */
+/*   Updated: 2022/07/03 21:36:45 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-char	*ft_itoa_ul(unsigned int n)
+int	ft_putstr_fd(char *s)
 {
-	char	num[11];
-	int		b;
-	char	*c;
+	size_t	a;
 
-	b = 10;
-	while (n / 10)
-	{
-		num[b--] = (n % 10) + '0';
-		n /= 10;
-	}
-	num[b] = (n % 10) + '0';
-	c = ft_calloc((12 - b), sizeof(char));
-	if (c == NULL)
-		return (NULL);
-	ft_memmove(c, num + b, 11 - b);
-	free(c);
-	return (c);
+	a = ft_strlen(s);
+	write(1, s, a);
+	return(a);
 }
-/*
-int	main(void)
-{
-	int	a;
-	char	*x;
-
-	a = -2147483648;
-	x = ft_itoa_ul(a);
-	printf("%s", x);
-	return 0;
-}*/

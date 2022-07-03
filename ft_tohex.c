@@ -6,31 +6,29 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:26:59 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/01 22:32:12 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/03 22:52:54 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
 
-char	*ft_tohex(unsigned long int n)
+int	ft_tohex(unsigned long int n, char *str)
 {
-	char	num[8];
+	char	num[16];
 	int		a;
 	int		b;
-	char	*c;
 
-	b = 7;
+	b = 0;
 	while(n / 16)
 	{
 		a = n % 16;
-		num[b--] = "0123456789abcdef"[a];
+		num[b++] = str[a];
 		n /= 16;
 	}
-	num[b] = "0123456789abcdef"[n];
-	c = ft_calloc((9 - b), sizeof(char));
-	if (c == NULL)
-		return (NULL);
-	ft_memmove(c, num + b, 8 - b);
-	return (c);
+	num[b] = str[n];
+	a = 0;
+	while(b >= 0)
+		a += ft_putchar_fd(num[b--]);
+	return (a);
 }

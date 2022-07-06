@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:37:44 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/03 22:42:30 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:39:52 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		ft_putchar_fd(char c);
 int		ft_putstr_fd(char *s);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_putnbr_fd(int n);
+int		ft_putnbr_u(unsigned int n);
 int		ft_tohex(unsigned long int n, char *str);
 int		ft_printf(char const *txt, ...);
 

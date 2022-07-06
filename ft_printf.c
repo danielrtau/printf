@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:49:55 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/06 21:35:42 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:56:58 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_printf(char const *txt, ...)
 	}
 	return (count);
 }
-
+/*
 int	main(void)
 {
 	char	*texto;
@@ -103,4 +103,4 @@ int	main(void)
 	b = ft_printf(texto, "bien");
 	printf("\nprintf: %d\nft_printf: %d", a, b);
 	return 0;
-}
+}*/

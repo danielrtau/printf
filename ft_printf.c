@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:49:55 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/08 18:59:56 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/08 20:10:26 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int	ft_printf(char const *txt, ...)
 			}
 			if (sp == 'd' || sp == 'i')
 			{
+				ch1 = va_arg(ap, int);
 				flag = ft_printf_specifier(txt, "+");
-				if (flag == '+')
+				if (flag == '+' && ch1 >= 0)
 					count += ft_putchar_fd('+');
 				else
 					flag = ft_printf_specifier(txt, " ");
-				if (flag == ' ')
+				if (flag == ' ' && ch1 >= 0)
 					count += ft_putchar_fd(' ');
-				ch1 = va_arg(ap, int);
 				count += ft_putnbr_fd(ch1);
 				txt = ft_strchr(txt, sp);
 			}
@@ -68,19 +68,19 @@ int	ft_printf(char const *txt, ...)
 			}
 			if (sp == 'x')
 			{
-				flag = ft_printf_specifier(txt, "#");
-				if (flag == '#')
-					count += ft_putstr_fd("0x");
 				ch3 = va_arg(ap, unsigned int);
+				flag = ft_printf_specifier(txt, "#");
+				if (flag == '#' && ch3 != 0)
+					count += ft_putstr_fd("0x");
 				count += ft_tohex(ch3, "0123456789abcdef");
 				txt = ft_strchr(txt, sp);
 			}
 			if (sp == 'X')
 			{
-				flag = ft_printf_specifier(txt, "#");
-				if (flag == '#')
-					count += ft_putstr_fd("0X");
 				ch3 = va_arg(ap, unsigned int);
+				flag = ft_printf_specifier(txt, "#");
+				if (flag == '#' && ch3 != 0)
+					count += ft_putstr_fd("0X");
 				count += ft_tohex(ch3, "0123456789ABCDEF");
 				txt = ft_strchr(txt, sp);
 			}
@@ -92,6 +92,8 @@ int	ft_printf(char const *txt, ...)
 			}
 			if (sp == '%')
 				count += ft_putchar_fd('%');
+			if (txt[0] == '\0')
+				break;
 			txt++;
 		}
 		else
@@ -111,8 +113,8 @@ int	main(void)
 	int		b;
 	int		x;
 
-	texto = "hola %  #   + x";
-	x = 48;
+	texto = "inicio %+ #     x";
+	x = -2;
 	a = printf(texto, x);
 	printf("\n");
 	b = ft_printf(texto, x);

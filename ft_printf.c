@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:49:55 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/06 21:56:58 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/08 18:59:56 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,57 +26,72 @@ int	ft_printf(char const *txt, ...)
 	unsigned long int	ch3;
 	char			*str;
 	int				count;
+	char			sp;
+	char			flag;
 	va_end(ap);
 	count = 0;
 	while (ft_strlen(txt))
 	{
 		if (*txt == '%')
 		{
-//			while(!(ft_strchr("cspdiuxX", txt[0])))
-					txt++;
-			if (txt[0] == 'c')
+			sp = ft_printf_specifier(++txt, "cspdiuxX%");
+			if (sp == 'c')
 			{
 				ch = (char)va_arg(ap, int);
 				write(1, &ch, 1);
 				count++;
 			}
-			if (txt[0] == 's')
+			if (sp == 's')
 			{
 				str = va_arg(ap, char *);
 				if(str == NULL)
 					str = "(null)";
 				count += ft_putstr_fd(str);
 			}
-			if (txt[0] == 'd' || txt[0] == 'i')
+			if (sp == 'd' || sp == 'i')
 			{
+				flag = ft_printf_specifier(txt, "+");
+				if (flag == '+')
+					count += ft_putchar_fd('+');
+				else
+					flag = ft_printf_specifier(txt, " ");
+				if (flag == ' ')
+					count += ft_putchar_fd(' ');
 				ch1 = va_arg(ap, int);
 				count += ft_putnbr_fd(ch1);
+				txt = ft_strchr(txt, sp);
 			}
-			if (txt[0] == 'u')
+			if (sp == 'u')
 			{
 				ch2 = va_arg(ap, unsigned int);
 				count += ft_putnbr_u(ch2);
 			}
-			if (txt[0] == 'x')
+			if (sp == 'x')
 			{
+				flag = ft_printf_specifier(txt, "#");
+				if (flag == '#')
+					count += ft_putstr_fd("0x");
 				ch3 = va_arg(ap, unsigned int);
 				count += ft_tohex(ch3, "0123456789abcdef");
+				txt = ft_strchr(txt, sp);
 			}
-			if (txt[0] == 'X')
+			if (sp == 'X')
 			{
+				flag = ft_printf_specifier(txt, "#");
+				if (flag == '#')
+					count += ft_putstr_fd("0X");
 				ch3 = va_arg(ap, unsigned int);
 				count += ft_tohex(ch3, "0123456789ABCDEF");
+				txt = ft_strchr(txt, sp);
 			}
-			if (txt[0] == 'p')
+			if (sp == 'p')
 			{
 				ch3 = va_arg(ap, unsigned long int);
 				count += ft_putstr_fd("0x");
 				count += ft_tohex(ch3, "0123456789faabcdef");
 			}
-			if (txt[0] == '%')
+			if (sp == '%')
 				count += ft_putchar_fd('%');
-			if (txt[0] == ' ')
-				count += ft_putchar_fd(' ');
 			txt++;
 		}
 		else
@@ -88,7 +103,7 @@ int	ft_printf(char const *txt, ...)
 	}
 	return (count);
 }
-/*
+
 int	main(void)
 {
 	char	*texto;
@@ -96,11 +111,11 @@ int	main(void)
 	int		b;
 	int		x;
 
-	texto = "%%%s";
+	texto = "hola %  #   + x";
 	x = 48;
-	a = printf(texto, "bien");
+	a = printf(texto, x);
 	printf("\n");
-	b = ft_printf(texto, "bien");
+	b = ft_printf(texto, x);
 	printf("\nprintf: %d\nft_printf: %d", a, b);
-	return 0;
-}*/
+	return (0);
+}

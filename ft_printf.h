@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 11:37:44 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/08 17:00:16 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:29:50 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		ft_putnbr_u(unsigned int n);
 int		ft_tohex(unsigned long int n, char *str);
 int		ft_printf(char const *txt, ...);
 char	ft_printf_specifier(char const *str, char const *srch);
+char	ft_flag(char const *str, char srch, char sp);
 
 typedef struct s_list
 {

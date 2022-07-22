@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_specifier.c                              :+:      :+:    :+:   */
+/*   ft_opt_hexa.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/08 16:39:27 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/08 19:01:03 by danielro         ###   ########.fr       */
+/*   Created: 2022/07/22 15:37:17 by danielro          #+#    #+#             */
+/*   Updated: 2022/07/22 18:30:17 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	ft_printf_specifier(char const *str, char const *srch)
+int	ft_opt_hexa(unsigned int n, char sp, char const *txt)
 {
-	char	*a;
+	int		count;
+	char	flag;
 
-	while (*str && !ft_strchr(srch, str[0]))
-		str++;
-	a = ft_strchr(srch, str[0]);
-	if(a[0] != '\0')
-		return(str[0]);
-	return(0);
+	count = 0;
+	flag = ft_flag(txt, '#', sp);
+	if (sp == 'x')
+	{
+		if (flag == '#' && n != 0)
+			count += ft_putstr_fd("0x");
+		count += ft_tohex(n, "0123456789abcdef");
+	}
+	if (sp == 'X')
+	{
+		if (flag == '#' && n != 0)
+			count += ft_putstr_fd("0X");
+		count += ft_tohex(n, "0123456789ABCDEF");
+	}
+	return (count);
 }

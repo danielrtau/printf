@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:49:55 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/18 20:34:40 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:12:08 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,94 +15,53 @@
 #include <unistd.h>
 #include "ft_printf.h"
 
+int	ft_options(char sp, char const *txt, va_list ap);
+
 int	ft_printf(char const *txt, ...)
 {
 	va_list ap;
 	va_start(ap, txt);
 
-	char			ch;
-	int				ch1;
-	unsigned int	ch2;
-	unsigned long int	ch3;
-	char			*str;
 	int				count;
 	char			sp;
-	char			flag;
 	va_end(ap);
 	count = 0;
 	while (ft_strlen(txt))
 	{
 		if (*txt == '%')
 		{
-			sp = ft_printf_specifier(++txt, "cspdiuxX%");
-			if (sp == 'c')
-			{
-				ch = (char)va_arg(ap, int);
-				write(1, &ch, 1);
-				count++;
-			}
-			if (sp == 's')
-			{
-				str = va_arg(ap, char *);
-				if(str == NULL)
-					str = "(null)";
-				count += ft_putstr_fd(str);
-			}
-			if (sp == 'd' || sp == 'i')
-			{
-				ch1 = va_arg(ap, int);
-				flag = ft_flag(txt, '+', sp);
-				if (flag == '+' && ch1 >= 0)
-					count += ft_putchar_fd('+');
-				else
-					flag = ft_flag(txt, ' ', sp);
-				if (flag == ' ' && ch1 >= 0)
-					count += ft_putchar_fd(' ');
-				count += ft_putnbr_fd(ch1);
-				txt = ft_strchr(txt, sp);
-			}
-			if (sp == 'u')
-			{
-				ch2 = va_arg(ap, unsigned int);
-				count += ft_putnbr_u(ch2);
-			}
-			if (sp == 'x')
-			{
-				ch3 = va_arg(ap, unsigned int);
-				flag = ft_flag(txt, '#', sp);
-				if (flag == '#' && ch3 != 0)
-					count += ft_putstr_fd("0x");
-				count += ft_tohex(ch3, "0123456789abcdef");
-				txt = ft_strchr(txt, sp);
-			}
-			if (sp == 'X')
-			{
-				ch3 = va_arg(ap, unsigned int);
-				flag = ft_flag(txt, '#', sp);
-				if (flag == '#' && ch3 != 0)
-					count += ft_putstr_fd("0X");
-				count += ft_tohex(ch3, "0123456789ABCDEF");
-				txt = ft_strchr(txt, sp);
-			}
-			if (sp == 'p')
-			{
-				ch3 = va_arg(ap, unsigned long int);
-				count += ft_putstr_fd("0x");
-				count += ft_tohex(ch3, "0123456789abcdef");
-			}
-			if (sp == '%')
-				count += ft_putchar_fd('%');
+			sp = ft_specifier(++txt, "cspdiuxX%");
+			count += ft_options(sp, txt, ap);
 			if (txt[0] == '\0')
 				break;
-			txt++;
+			txt = ft_strchr(txt, sp);
 		}
 		else
-		{
-			write(1, &txt[0], 1);
-			count++;
-			txt++;
-		}
+			count += ft_putchar_fd(txt[0]);
+		txt++;
 	}
+	return (count);
+}
+
+int	ft_options(char sp, char const *txt, va_list ap)
+{
+	int	count;
+
+	count = 0;
+	if (sp == 'c')
+		count += ft_putchar_fd((char)va_arg(ap, int));
+	if (sp == 's')
+		count += ft_opt_string(va_arg(ap, char *));
+	if (sp == 'd' || sp == 'i')
+		count += ft_opt_numbr(va_arg(ap, int), sp, txt);
+	if (sp == 'u')
+		count += ft_putnbr_u(va_arg(ap, unsigned int));
+	if (sp == 'x' || sp == 'X')
+		count += ft_opt_hexa(va_arg(ap, unsigned int), sp, txt);
+	if (sp == 'p')
+		count += ft_opt_pointer(va_arg(ap, unsigned long int));
+	if (sp == '%')
+		count += ft_putchar_fd('%');
 	return (count);
 }
 /*
@@ -113,11 +72,13 @@ int	main(void)
 	int		b;
 	int		x;
 
-	texto = "ghghg¨{%    #    +   X}fhhdhdf, ";
+	texto = "pruebaaa ghghg¨{%        +   x }fhhdhdf, %";
 	x = 42;
-	a = printf(texto, x);
+	a = printf("pruebaaa ghghg¨{%X }fhhdhdf, ", x);
+//	a = printf(texto, x);
 	printf("\n");
-	b = ft_printf(texto, x);
+	b = ft_printf("pruebaaa ghghg¨{%X }fhhdhdf, ", x);
+//	b = ft_printf(texto, x);
 	printf("\nprintf: %d\nft_printf: %d", a, b);
 	return (0);
 }*/

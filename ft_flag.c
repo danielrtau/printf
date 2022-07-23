@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/08 20:43:07 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/18 20:31:09 by danielro         ###   ########.fr       */
+/*   Created: 2022/07/22 21:22:22 by danielro          #+#    #+#             */
+/*   Updated: 2022/07/22 21:23:24 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	ft_flag(char const *str, char srch, char sp)
 {
 	while (*str != sp && *str != srch)
 		str++;
-	if(str[0] != sp)
-		return(str[0]);
-	return(0);
+	if (str[0] != sp)
+		return (str[0]);
+	return (0);
 }

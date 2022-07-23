@@ -6,7 +6,7 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:37:17 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/22 18:30:17 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:50:30 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	ft_opt_hexa(unsigned int n, char sp, char const *txt)
 	if (sp == 'x')
 	{
 		if (flag == '#' && n != 0)
-			count += ft_putstr_fd("0x");
+			count += ft_putstr("0x");
 		count += ft_tohex(n, "0123456789abcdef");
 	}
 	if (sp == 'X')
 	{
 		if (flag == '#' && n != 0)
-			count += ft_putstr_fd("0X");
+			count += ft_putstr("0X");
 		count += ft_tohex(n, "0123456789ABCDEF");
 	}
 	return (count);

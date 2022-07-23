@@ -6,13 +6,13 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 14:37:58 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/03 19:31:23 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/23 11:21:33 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr_fd(int n)
+int	ft_putnbr(int n)
 {
 	char	a[10];
 	int		b;
@@ -21,16 +21,12 @@ int	ft_putnbr_fd(int n)
 	c = 0;
 	b = -1;
 	if (n == -2147483648)
-	{
-		write(1, "-2147483648", 11);
-		c += 11;
-	}
+		c += ft_putstr("-2147483648");
 	else
 	{
 		if (n < 0)
 		{
-			write(1, "-", 1);
-			c++;
+			c += ft_putchar('-');
 			n *= -1;
 		}
 		while (n / 10)
@@ -40,10 +36,7 @@ int	ft_putnbr_fd(int n)
 		}
 		a[++b] = n;
 		while (b >= 0)
-		{
-			c += ft_putchar_fd(a[b] + '0');
-			b--;
-		}
+			c += ft_putchar(a[b--] + '0');
 	}
-	return(c);
+	return (c);
 }

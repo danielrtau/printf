@@ -6,17 +6,17 @@
 /*   By: danielro <danielro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 13:45:05 by danielro          #+#    #+#             */
-/*   Updated: 2022/07/03 21:36:45 by danielro         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:28:32 by danielro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putstr_fd(char *s)
+int	ft_putstr(char *s)
 {
 	size_t	a;
 
 	a = ft_strlen(s);
 	write(1, s, a);
-	return(a);
+	return (a);
 }
